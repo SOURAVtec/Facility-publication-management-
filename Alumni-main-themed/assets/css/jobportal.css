@@ -1,0 +1,169 @@
+/* Theme variables */
+:root {
+  --background: #e0f2f1;
+  --foreground: #333;
+  --primary: #004d40;
+  --section-bg: #fff;
+  --section-shadow: rgba(0, 0, 0, 0.1);
+  --section-hover: #e0f7fa;
+  --button-bg: #004d40;
+  --button-hover: #00796b;
+  --input-bg: #f4f4f4;
+  --input-focus: #e0f7fa;
+  --input-border: #004d40;
+  --input-focus-border: #00796b;
+}
+body.dark {
+  --background: #181818;
+  --foreground: #f1f1f1;
+  --primary: #26a69a;
+  --section-bg: #232323;
+  --section-shadow: rgba(0, 0, 0, 0.7);
+  --section-hover: #232323;
+  --button-bg: #26a69a;
+  --button-hover: #333;
+  --input-bg: #232323;
+  --input-focus: #181818;
+  --input-border: #26a69a;
+  --input-focus-border: #fff;
+}
+body {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  color: var(--foreground);
+  line-height: 1.6;
+  /* Ensure good readability */
+}
+
+header {
+  background-color: var(--primary);
+  color: #fff;
+  padding: 1.5em 0;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Add a subtle shadow for depth */
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin: 0;
+  letter-spacing: 1px;
+  /* Increase font size and spacing */
+}
+
+main {
+  padding: 2em;
+}
+
+section {
+  margin-bottom: 2.5em;
+  background-color: var(--section-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--section-shadow);
+  padding: 2.5em;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+section:hover {
+  transform: translateY(-5px);
+  background-color: var(--section-hover);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  /* Add hover effect for interactivity */
+}
+
+h2 {
+  margin-top: 0;
+  color: var(--primary);
+  font-size: 1.75em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 0.5em;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 1em;
+  font-weight: bold;
+  color: var(--primary);
+  font-size: 1.1em;
+}
+
+input,
+textarea,
+select {
+  margin-top: 0.5em;
+  padding: 0.75em;
+  border: 2px solid var(--input-border);
+  border-radius: 8px;
+  background-color: var(--input-bg);
+  color: var(--foreground);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  background-color: var(--input-focus);
+  border-color: var(--input-focus-border);
+  outline: none;
+}
+
+button {
+  padding: 0.75em;
+  background-color: var(--button-bg);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1em;
+  margin-top: 1.5em;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+  background-color: var(--button-hover);
+  transform: translateY(-2px);
+}
+
+#search-filters form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+#search-filters label,
+#search-filters input,
+#search-filters select {
+  flex: 1;
+  min-width: 200px;
+}
+
+#job-listings .job {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+
+#job-listings .job:last-child {
+  border-bottom: none;
+}
+
+.job {
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  padding: 1.5em;
+  background-color: #fafafa;
+  margin-bottom: 1.5em;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.job:hover {
+  background-color: #f1f1f1;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}

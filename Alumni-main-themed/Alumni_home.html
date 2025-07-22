@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alumni Association - Home</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#members">Members</a></li>
+          <li>
+            <a href="C:\Users\Hp\Documents\Alumni\donation.html">Donations</a>
+          </li>
+          <li>
+            <a href="C:\Users\Hp\Documents\Alumni\jobportal.html"
+              >Job Postings</a
+            >
+          </li>
+          <li>
+            <a href="C:\Users\Hp\Documents\Alumni\feedback.html">Feedback</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="home">
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Welcome to the Alumni Association</h1>
+          <p>Celebrating the achievements and memories of our alumni.</p>
+        </div>
+      </section>
+
+      <section class="showcase-grid">
+        <div class="grid-item">
+          <img src="assets/images/Untitled design.png" alt="Event 1" />
+          <div class="overlay">
+            <h2>Annual Alumni Meet</h2>
+            <p>Join us for the grand annual meet on September 15, 2024.</p>
+          </div>
+        </div>
+
+        <div class="grid-item">
+          <img src="assets/images/award.jpg" alt="Alumni Achievement 1" />
+          <div class="overlay">
+            <h2>Alumni Achievement</h2>
+            <p>John Doe wins the Best Entrepreneur of the Year award.</p>
+          </div>
+        </div>
+
+        <div class="grid-item">
+          <img src="assets/images/webinar.jpg" alt="" />
+          <div class="overlay">
+            <h2>Webinar on Career Growth</h2>
+            <p>Exclusive webinar by industry leaders on October 22, 2024.</p>
+          </div>
+        </div>
+
+        <div class="grid-item">
+          <img
+            src="assets/images/achievement2.jpg"
+            alt="Alumni Achievement 2"
+          />
+          <div class="overlay">
+            <h2>Alumni Spotlight</h2>
+            <p>Jane Smith recognized for her contributions to technology.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Alumni Association. All rights reserved.</p>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const heading = document.querySelector(".hero-content h1");
+        const text = heading.textContent;
+        heading.textContent = "";
+        let index = 0;
+
+        function typeWriter() {
+          if (index < text.length) {
+            heading.textContent += text.charAt(index);
+            index++;
+            setTimeout(typeWriter, 100); // Adjust speed by changing the timeout value
+          }
+        }
+
+        typeWriter();
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const navItems = document.querySelectorAll("nav ul li");
+
+        navItems.forEach((item, index) => {
+          item.style.opacity = 0;
+          item.style.transform = "translateX(-30px)";
+
+          setTimeout(() => {
+            item.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+            item.style.opacity = 1;
+            item.style.transform = "translateX(0)";
+          }, 100 * index); // Delay each item by 100ms to create a staggered effect
+        });
+      });
+    </script>
+
+    <script src="assets/js/theme-toggle.js"></script>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alumni Association - Donate</title>
+    <link rel="stylesheet" href="assets/css/donation.css" />
+  </head>
+  <body>
+    <div class="donation-container">
+      <div class="donation-form">
+        <h2>Support Our Alumni Association</h2>
+        <p>
+          Your donation will help us continue our mission and support alumni
+          activities.
+        </p>
+
+        <form action="thankyou.html" method="post">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+
+          <label for="amount">Donation Amount</label>
+          <input type="number" id="amount" name="amount" min="1" required />
+
+          <label for="payment-method">Payment Method</label>
+          <select id="payment-method" name="payment-method" required>
+            <option value="credit-card">Credit Card</option>
+            <option value="paypal">PayPal</option>
+            <option value="bank-transfer">Bank Transfer</option>
+          </select>
+
+          <div id="credit-card-info" class="payment-details">
+            <label for="card-number">Card Number</label>
+            <input type="text" id="card-number" name="card-number" required />
+
+            <label for="expiry-date">Expiry Date</label>
+            <input
+              type="text"
+              id="expiry-date"
+              name="expiry-date"
+              placeholder="MM/YY"
+              required
+            />
+
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" name="cvv" required />
+          </div>
+
+          <div id="paypal-info" class="payment-details">
+            <p>You will be redirected to PayPal to complete your donation.</p>
+          </div>
+
+          <button type="submit">Donate Now</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("payment-method")
+        .addEventListener("change", function () {
+          const method = this.value;
+          document.querySelectorAll(".payment-details").forEach(function (el) {
+            el.style.display = "none";
+          });
+          if (method === "credit-card") {
+            document.getElementById("credit-card-info").style.display = "block";
+          } else if (method === "paypal") {
+            document.getElementById("paypal-info").style.display = "block";
+          }
+        });
+    </script>
+    <script src="assets/js/theme-toggle.js"></script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+.theme-toggle-bar {
+  width: 100vw;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background: var(--card-bg, #fff);
+  padding: 0.5rem 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  font-family: "Montserrat", sans-serif;
+}
+
+.theme-toggle-bar .checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+.theme-toggle-bar .checkbox-label {
+  background-color: #111;
+  width: 50px;
+  height: 26px;
+  border-radius: 50px;
+  position: relative;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.theme-toggle-bar .fa-moon {
+  color: #f1c40f;
+}
+.theme-toggle-bar .fa-sun {
+  color: #f39c12;
+}
+
+.theme-toggle-bar .checkbox-label .ball {
+  background-color: #fff;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  border-radius: 50%;
+  transition: transform 0.2s linear;
+}
+
+.theme-toggle-bar .checkbox:checked + .checkbox-label .ball {
+  transform: translateX(24px);
+}
