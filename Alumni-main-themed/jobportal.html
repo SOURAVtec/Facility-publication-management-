@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced Job Portal</title>
+    <link rel="stylesheet" href="assets/css/jobportal.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>Alumni Job Portal</h1>
+    </header>
+
+    <main>
+      <section id="search-filters">
+        <h2
+          style="
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 230%;
+          "
+        >
+          Search & Filter
+        </h2>
+        <form id="search-form">
+          <label for="search-title">Search by Job Title:</label>
+          <input type="text" id="search-title" />
+
+          <label for="search-location">Location:</label>
+          <input type="text" id="search-location" />
+
+          <label for="search-type">Job Type:</label>
+          <select id="search-type">
+            <option value="">All Types</option>
+            <option value="Full-Time">Full-Time</option>
+            <option value="Part-Time">Part-Time</option>
+            <option value="Internship">Internship</option>
+          </select>
+
+          <button type="submit">Search</button>
+        </form>
+      </section>
+
+      <section id="job-listings">
+        <h2>Job Listings</h2>
+        <div id="jobs"></div>
+      </section>
+
+      <section id="post-job">
+        <h2
+          style="
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 230%;
+          "
+        >
+          Post a Job
+        </h2>
+        <form id="job-form">
+          <label for="job-title">Job Title:</label>
+          <input type="text" id="job-title" required />
+
+          <label for="job-description">Job Description:</label>
+          <textarea id="job-description" required></textarea>
+
+          <label for="company">Company:</label>
+          <input type="text" id="company" required />
+
+          <label for="location">Location:</label>
+          <input type="text" id="location" required />
+
+          <label for="job-type">Job Type:</label>
+          <select id="job-type" required>
+            <option value="Full-Time">Full-Time</option>
+            <option value="Part-Time">Part-Time</option>
+            <option value="Internship">Internship</option>
+          </select>
+
+          <button type="submit">Post Job</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="assets/js/theme-toggle.js"></script>
+  </body>
+</html>
