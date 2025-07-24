@@ -11,20 +11,18 @@
     <header>
       <nav>
         <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
+          <li><a href="Alumni_home.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
           <li><a href="#events">Events</a></li>
           <li><a href="#members">Members</a></li>
           <li>
-            <a href="C:\Users\Hp\Documents\Alumni\donation.html">Donations</a>
+            <a href="donation.html">Donations</a>
           </li>
           <li>
-            <a href="C:\Users\Hp\Documents\Alumni\jobportal.html"
-              >Job Postings</a
-            >
+            <a href="jobportal.html">Job Postings</a>
           </li>
           <li>
-            <a href="C:\Users\Hp\Documents\Alumni\feedback.html">Feedback</a>
+            <a href="#feedback">Feedback</a>
           </li>
         </ul>
       </nav>
@@ -91,7 +89,7 @@
           if (index < text.length) {
             heading.textContent += text.charAt(index);
             index++;
-            setTimeout(typeWriter, 100); // Adjust speed by changing the timeout value
+            setTimeout(typeWriter, 100);
           }
         }
 
@@ -111,7 +109,7 @@
             item.style.transition = "opacity 0.5s ease, transform 0.5s ease";
             item.style.opacity = 1;
             item.style.transform = "translateX(0)";
-          }, 100 * index); // Delay each item by 100ms to create a staggered effect
+          }, 100 * index);
         });
       });
     </script>
