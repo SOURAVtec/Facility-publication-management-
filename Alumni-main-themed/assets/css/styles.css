@@ -1,5 +1,28 @@
 /* Theme variables */
 :root {
+  --bg-color: #ffffff;
+  --text-color: #111111;
+  --accent-color: #3f51b5;
+  --toggle-bg: #eeeeee;
+  --toggle-icon: #333333;
+  --toggle-hover-bg: #dddddd;
+}
+
+body.dark {
+  --bg-color: #121212;
+  --text-color: #f0f0f0;
+  --accent-color: #bb86fc;
+  --toggle-bg: #333333;
+  --toggle-icon: #ffffff;
+  --toggle-hover-bg: #444444;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+:root {
   --background: #f9f9f9;
   --foreground: #333;
   --primary: #004d40;

@@ -60,3 +60,8 @@
     document.head.appendChild(fabcss);
   }
 })();
+
+button.setAttribute('aria-label', 'Toggle light/dark theme');
+button.setAttribute('role', 'switch');
+button.setAttribute('tabindex', '0');
+button.title = "Toggle Theme";
