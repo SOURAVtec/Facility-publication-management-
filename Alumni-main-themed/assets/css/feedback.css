@@ -1,0 +1,95 @@
+/* Theme variables */
+:root {
+  --background: #f9f9f9;
+  --foreground: #333;
+  --primary: #004d40;
+  --card-bg: #fff;
+  --card-shadow: rgba(0, 0, 0, 0.2);
+  --input-bg: #fff;
+  --input-border: #ddd;
+  --input-focus: #004d40;
+  --button-bg: #004d40;
+  --button-hover: #00332a;
+  --link: #004d40;
+  --link-hover: #00332a;
+}   
+
+body.dark {
+  --background: #181818;
+  --foreground: #f1f1f1;
+  --primary: #26a69a;
+  --card-bg: #232323;
+  --card-shadow: rgba(0, 0, 0, 0.7);
+  --input-bg: #232323;
+  --input-border: #444;
+  --input-focus: #26a69a;
+  --button-bg: #26a69a;
+  --button-hover: #333;
+  --link: #26a69a;
+  --link-hover: #fff;
+}
+body {
+  font-family: "Roboto", sans-serif;
+  color: var(--foreground);
+  background-color: var(--background);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.feedbackform{
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px var(--card-shadow);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+
+.feedbackform h1{
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.feedbackform label{
+    display: block;
+    text-align: left;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--foreground);
+}
+.feedbackform input[type="email"],.feedbackform input[type="text"] ,.feedbackform input[type="radio"]{
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background: var(--input-bg);
+  color: var(--foreground);
+}
+
+.feedbackform input[type="email"]:focus,.feedbackform input[type="text"]:focus ,.feedbackform input[type="radio"]:focus {
+  border-color: var(--input-focus);
+  outline: none;
+}
+.feedbackform .rating{
+    display: flex;
+}
+.feedbackform #button{
+  width: 100%;
+  background: var(--button-bg);
+  color: #fff;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
+}
