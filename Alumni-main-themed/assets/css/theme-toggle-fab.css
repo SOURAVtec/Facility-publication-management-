@@ -1,5 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
-
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background-color: var(--toggle-bg);
+  color: var(--toggle-icon);
+  border-radius: 25px;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+.theme-toggle:hover {
+  transform: scale(1.05);
+  background-color: var(--toggle-hover-bg);
+}
 .theme-toggle-switch {
   position: fixed;
   top: 1.5rem;
