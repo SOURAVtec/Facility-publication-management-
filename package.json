@@ -1,0 +1,56 @@
+{
+  "name": "alumni-association-website",
+  "version": "1.0.0",
+  "description": "Alumni Association website with light/dark theme toggle functionality",
+  "main": "assets/js/server.js",
+  "scripts": {
+    "start": "node assets/js/server.js",
+    "dev": "nodemon assets/js/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"No build process needed for static HTML\"",
+    "lint": "eslint . --ext .js",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "alumni",
+    "association",
+    "website",
+    "light-dark-theme",
+    "responsive",
+    "express",
+    "mongodb"
+  ],
+  "author": "Alumni Association Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.5.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.4",
+    "multer": "^1.4.5",
+    "helmet": "^7.0.0",
+    "express-rate-limit": "^6.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "eslint": "^8.47.0",
+    "prettier": "^3.0.2",
+    "@eslint/js": "^8.47.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Liza-IITP/Facility-publication-management-.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Liza-IITP/Facility-publication-management-/issues"
+  },
+  "homepage": "https://github.com/Liza-IITP/Facility-publication-management-#readme"
+}

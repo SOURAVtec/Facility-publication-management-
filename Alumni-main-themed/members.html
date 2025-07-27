@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alumni Association - Members</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      
+      main {
+        flex: 1;
+      }
+      
+      .members-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 2rem;
+        min-height: calc(100vh - 200px);
+      }
+      
+      .members-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem 0;
+      }
+      
+      .members-header h1 {
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+      
+      .members-header p {
+        font-size: 1.2rem;
+        color: #666;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      
+      .members-search {
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        position: relative;
+      }
+      
+      .search-input {
+        width: 100%;
+        padding: 1.2rem 1.2rem 1.2rem 3.5rem;
+        border: 2px solid var(--input-border);
+        border-radius: 50px;
+        font-size: 1.1rem;
+        background: var(--input-bg);
+        color: var(--foreground);
+        transition: var(--transition);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      
+      .search-input:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(0, 77, 64, 0.1);
+      }
+      
+      .search-icon {
+        position: absolute;
+        left: 1.2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--primary);
+        font-size: 1.2rem;
+      }
+      
+      .members-filters {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+      }
+      
+      .filter-select {
+        padding: 0.75rem 1.5rem;
+        border: 2px solid var(--primary);
+        border-radius: 25px;
+        background: var(--input-bg);
+        color: var(--foreground);
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: var(--transition);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      .filter-select:hover,
+      .filter-select.active {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 77, 64, 0.3);
+      }
+      
+      .members-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2.5rem;
+        margin-bottom: 4rem;
+      }
+      
+      .member-card {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px var(--card-shadow);
+        transition: var(--transition);
+        border: 1px solid rgba(0, 77, 64, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .member-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+      }
+      
+      .member-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px var(--card-shadow);
+      }
+      
+      .member-photo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin: 0 auto 1.5rem;
+        border: 4px solid var(--primary);
+        object-fit: cover;
+        transition: var(--transition);
+      }
+      
+      .member-card:hover .member-photo {
+        transform: scale(1.1);
+        border-color: var(--secondary);
+      }
+      
+      .member-info h3 {
+        color: var(--primary);
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+      }
+      
+      .member-info .title {
+        color: var(--secondary);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+      }
+      
+      .member-info .company {
+        color: #666;
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+      }
+      
+      .member-info .graduation {
+        color: var(--primary);
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+      
+      .member-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1.5rem;
+      }
+      
+      .contact-btn {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: var(--transition);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .contact-btn:hover {
+        background: var(--secondary);
+        color: var(--primary);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 77, 64, 0.3);
+      }
+      
+      .stats-section {
+        background: var(--card-bg);
+        padding: 3rem 2rem;
+        margin: 4rem 0;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px var(--card-shadow);
+        text-align: center;
+      }
+      
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+      }
+      
+      .stat-item {
+        padding: 1.5rem;
+      }
+      
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        display: block;
+      }
+      
+      .stat-label {
+        font-size: 1.1rem;
+        color: #666;
+        margin-top: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      
+      .member-card {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: 0 5px 20px var(--card-shadow);
+        transition: transform 0.3s ease;
+        text-align: center;
+      }
+      
+      .member-card:hover {
+        transform: translateY(-5px);
+      }
+      
+      .member-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: white;
+        margin: 0 auto 1rem;
+        font-weight: bold;
+      }
+      
+      .member-name {
+        color: var(--foreground);
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+      
+      .member-title {
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      
+      .member-company {
+        color: #666;
+        margin-bottom: 0.5rem;
+      }
+      
+      .member-graduation {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+      
+      .member-skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+      
+      .skill-tag {
+        background: var(--primary);
+        color: white;
+        padding: 0.2rem 0.6rem;
+        border-radius: 12px;
+        font-size: 0.8rem;
+      }
+      
+      .member-actions {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+      }
+      
+      .btn {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+      }
+      
+      .btn-secondary {
+        background: transparent;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+      }
+      
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      
+      .stats-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 3rem;
+      }
+      
+      .stat-card {
+        background: var(--card-bg);
+        padding: 1.5rem;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 3px 15px var(--card-shadow);
+      }
+      
+      .stat-number {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--primary);
+      }
+      
+      .stat-label {
+        color: var(--foreground);
+        margin-top: 0.5rem;
+      }
+      
+      .no-members {
+        text-align: center;
+        padding: 3rem;
+        color: #666;
+      }
+      
+      .loading {
+        text-align: center;
+        padding: 2rem;
+        color: var(--primary);
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="Alumni_home.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="members.html">Members</a></li>
+          <li><a href="donation.html">Donations</a></li>
+          <li><a href="jobportal.html">Job Postings</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="members-container">
+      <div class="members-header">
+        <h1>Alumni Directory</h1>
+        <p>Connect with fellow alumni from around the world</p>
+      </div>
+
+      <div class="stats-section">
+        <div class="stat-card">
+          <div class="stat-number" id="totalMembers">0</div>
+          <div class="stat-label">Total Members</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="totalCompanies">0</div>
+          <div class="stat-label">Companies</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="totalCountries">0</div>
+          <div class="stat-label">Countries</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="graduationYears">0</div>
+          <div class="stat-label">Graduation Years</div>
+        </div>
+      </div>
+
+      <div class="members-search">
+        <div class="search-icon">🔍</div>
+        <input 
+          type="text" 
+          class="search-input" 
+          placeholder="Search by name, company, or skills..." 
+          id="searchInput"
+        />
+      </div>
+
+      <div class="members-filters">
+        <select class="filter-select" id="graduationFilter">
+          <option value="">All Graduation Years</option>
+        </select>
+        <select class="filter-select" id="departmentFilter">
+          <option value="">All Departments</option>
+        </select>
+        <select class="filter-select" id="locationFilter">
+          <option value="">All Locations</option>
+        </select>
+      </div>
+
+      <div class="loading" id="loadingIndicator">Loading members...</div>
+      
+      <div class="members-grid" id="membersGrid" style="display: none;">
+        <!-- Members will be populated by JavaScript -->
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Alumni Association. All rights reserved.</p>
+    </footer>
+
+    <script>
+      const members = [
+        {
+          id: 1,
+          name: "Sarah Johnson",
+          title: "Senior Software Engineer",
+          company: "Google",
+          graduation: "Class of 2018",
+          department: "Computer Science",
+          location: "San Francisco, CA",
+          skills: ["JavaScript", "React", "Python"],
+          avatar: "SJ"
+        },
+        {
+          id: 2,
+          name: "Michael Chen",
+          title: "Product Manager",
+          company: "Microsoft",
+          graduation: "Class of 2016",
+          department: "Business Administration",
+          location: "Seattle, WA",
+          skills: ["Product Strategy", "Analytics", "Leadership"],
+          avatar: "MC"
+        },
+        {
+          id: 3,
+          name: "Emily Rodriguez",
+          title: "Data Scientist",
+          company: "Netflix",
+          graduation: "Class of 2019",
+          department: "Mathematics",
+          location: "Los Angeles, CA",
+          skills: ["Machine Learning", "Python", "Statistics"],
+          avatar: "ER"
+        },
+        {
+          id: 4,
+          name: "David Kim",
+          title: "UX Designer",
+          company: "Apple",
+          graduation: "Class of 2017",
+          department: "Design",
+          location: "Cupertino, CA",
+          skills: ["UI/UX", "Figma", "Design Systems"],
+          avatar: "DK"
+        },
+        {
+          id: 5,
+          name: "Jessica Thompson",
+          title: "Marketing Director",
+          company: "Spotify",
+          graduation: "Class of 2015",
+          department: "Marketing",
+          location: "New York, NY",
+          skills: ["Digital Marketing", "Brand Strategy", "Analytics"],
+          avatar: "JT"
+        },
+        {
+          id: 6,
+          name: "Alex Martinez",
+          title: "DevOps Engineer",
+          company: "Amazon",
+          graduation: "Class of 2020",
+          department: "Computer Science",
+          location: "Austin, TX",
+          skills: ["AWS", "Docker", "Kubernetes"],
+          avatar: "AM"
+        },
+        {
+          id: 7,
+          name: "Lisa Wong",
+          title: "Financial Analyst",
+          company: "Goldman Sachs",
+          graduation: "Class of 2018",
+          department: "Finance",
+          location: "New York, NY",
+          skills: ["Financial Modeling", "Excel", "Risk Analysis"],
+          avatar: "LW"
+        },
+        {
+          id: 8,
+          name: "Ryan O'Connor",
+          title: "Startup Founder",
+          company: "TechStart Inc.",
+          graduation: "Class of 2014",
+          department: "Engineering",
+          location: "Boston, MA",
+          skills: ["Entrepreneurship", "Leadership", "Innovation"],
+          avatar: "RO"
+        }
+      ];
+
+      let filteredMembers = [...members];
+
+      function createMemberCard(member) {
+        return `
+          <div class="member-card">
+            <div class="member-avatar">${member.avatar}</div>
+            <h3 class="member-name">${member.name}</h3>
+            <div class="member-title">${member.title}</div>
+            <div class="member-company">${member.company}</div>
+            <div class="member-graduation">${member.graduation} • ${member.department}</div>
+            <div class="member-graduation">📍 ${member.location}</div>
+            <div class="member-skills">
+              ${member.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+            </div>
+            <div class="member-actions">
+              <button class="btn btn-primary" onclick="connectWithMember(${member.id})">Connect</button>
+              <button class="btn btn-secondary" onclick="viewProfile(${member.id})">View Profile</button>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderMembers(membersToRender = filteredMembers) {
+        const grid = document.getElementById('membersGrid');
+        const loading = document.getElementById('loadingIndicator');
+        
+        // Simulate loading
+        setTimeout(() => {
+          loading.style.display = 'none';
+          grid.style.display = 'grid';
+          
+          if (membersToRender.length === 0) {
+            grid.innerHTML = '<div class="no-members">No members found matching your criteria.</div>';
+            return;
+          }
+          
+          grid.innerHTML = membersToRender.map(createMemberCard).join('');
+          
+          // Add animation
+          document.querySelectorAll('.member-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+              card.style.transition = 'all 0.6s ease';
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, index * 100);
+          });
+        }, 1000);
+      }
+
+      function updateStats() {
+        const totalMembers = members.length;
+        const companies = new Set(members.map(m => m.company)).size;
+        const locations = new Set(members.map(m => m.location.split(',')[1]?.trim())).size;
+        const years = new Set(members.map(m => m.graduation.match(/\d{4}/)?.[0])).size;
+        
+        document.getElementById('totalMembers').textContent = totalMembers;
+        document.getElementById('totalCompanies').textContent = companies;
+        document.getElementById('totalCountries').textContent = locations;
+        document.getElementById('graduationYears').textContent = years;
+      }
+
+      function populateFilters() {
+        const graduationYears = [...new Set(members.map(m => m.graduation))].sort();
+        const departments = [...new Set(members.map(m => m.department))].sort();
+        const locations = [...new Set(members.map(m => m.location))].sort();
+        
+        const gradFilter = document.getElementById('graduationFilter');
+        const deptFilter = document.getElementById('departmentFilter');
+        const locFilter = document.getElementById('locationFilter');
+        
+        graduationYears.forEach(year => {
+          const option = document.createElement('option');
+          option.value = year;
+          option.textContent = year;
+          gradFilter.appendChild(option);
+        });
+        
+        departments.forEach(dept => {
+          const option = document.createElement('option');
+          option.value = dept;
+          option.textContent = dept;
+          deptFilter.appendChild(option);
+        });
+        
+        locations.forEach(loc => {
+          const option = document.createElement('option');
+          option.value = loc;
+          option.textContent = loc;
+          locFilter.appendChild(option);
+        });
+      }
+
+      function filterMembers() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const gradYear = document.getElementById('graduationFilter').value;
+        const department = document.getElementById('departmentFilter').value;
+        const location = document.getElementById('locationFilter').value;
+        
+        filteredMembers = members.filter(member => {
+          const matchesSearch = !searchTerm || 
+            member.name.toLowerCase().includes(searchTerm) ||
+            member.company.toLowerCase().includes(searchTerm) ||
+            member.skills.some(skill => skill.toLowerCase().includes(searchTerm));
+          
+          const matchesGrad = !gradYear || member.graduation === gradYear;
+          const matchesDept = !department || member.department === department;
+          const matchesLoc = !location || member.location === location;
+          
+          return matchesSearch && matchesGrad && matchesDept && matchesLoc;
+        });
+        
+        renderMembers();
+      }
+
+      function connectWithMember(memberId) {
+        const member = members.find(m => m.id === memberId);
+        alert(`Connection request sent to ${member.name}!`);
+      }
+
+      function viewProfile(memberId) {
+        const member = members.find(m => m.id === memberId);
+        alert(`Viewing profile for ${member.name}\n\n${member.title} at ${member.company}\n${member.graduation}\nSkills: ${member.skills.join(', ')}`);
+      }
+
+      // Initialize page
+      document.addEventListener('DOMContentLoaded', function() {
+        updateStats();
+        populateFilters();
+        renderMembers();
+        
+        // Add event listeners
+        document.getElementById('searchInput').addEventListener('input', filterMembers);
+        document.getElementById('graduationFilter').addEventListener('change', filterMembers);
+        document.getElementById('departmentFilter').addEventListener('change', filterMembers);
+        document.getElementById('locationFilter').addEventListener('change', filterMembers);
+      });
+    </script>
+    <script src="assets/js/theme-toggle.js"></script>
+  </body>
+</html>

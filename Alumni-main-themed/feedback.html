@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alumni Association - Feedback</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      
+      main {
+        flex: 1;
+      }
+      
+      .feedback-container {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 0 2rem;
+        min-height: calc(100vh - 200px);
+      }
+      
+      .feedback-header {
+        text-align: center;
+        margin-bottom: 4rem;
+        padding: 2rem 0;
+      }
+      
+      .feedback-header h1 {
+        color: var(--primary);
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      
+      .feedback-header p {
+        font-size: 1.2rem;
+        color: #666;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      
+      .feedback-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-bottom: 3rem;
+        background: var(--card-bg);
+        padding: 1rem;
+        border-radius: 50px;
+        box-shadow: 0 4px 15px var(--card-shadow);
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 3rem;
+      }
+      
+      .tab-btn {
+        padding: 1rem 2rem;
+        border: none;
+        background: transparent;
+        color: var(--foreground);
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 30px;
+        transition: var(--transition);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        flex: 1;
+        text-align: center;
+      }
+      
+      .tab-btn.active,
+      .tab-btn:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 77, 64, 0.3);
+      }
+      
+      .tab-content {
+        background: var(--card-bg);
+        padding: 3rem;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px var(--card-shadow);
+        margin-bottom: 2rem;
+      }
+      
+      .feedback-form {
+        max-width: 100%;
+      }
+      
+      .form-group {
+        margin-bottom: 2rem;
+      }
+      
+      .form-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: var(--primary);
+        font-size: 1.1rem;
+      }
+      
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 1.2rem;
+        border: 2px solid var(--input-border);
+        border-radius: var(--border-radius);
+        font-size: 1rem;
+        background: var(--input-bg);
+        color: var(--foreground);
+        transition: var(--transition);
+        font-family: inherit;
+      }
+      
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(0, 77, 64, 0.1);
+        transform: translateY(-2px);
+      }
+      
+      .rating-container {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        margin-top: 0.5rem;
+      }
+      
+      .star {
+        font-size: 2rem;
+        color: #ddd;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+      
+      .star:hover,
+      .star.active {
+        color: #ffd700;
+        transform: scale(1.1);
+      }
+      
+      .submit-btn {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        border: none;
+        padding: 1.2rem 3rem;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: block;
+        margin: 2rem auto 0;
+        box-shadow: 0 8px 20px rgba(0, 77, 64, 0.3);
+      }
+      
+      .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(0, 77, 64, 0.4);
+      }
+      
+      .feedback-list {
+        margin-top: 2rem;
+      }
+      
+      .feedback-item {
+        background: var(--card-bg);
+        padding: 2rem;
+        border-radius: 15px;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 15px var(--card-shadow);
+        border-left: 4px solid var(--primary);
+        transition: var(--transition);
+      }
+      
+      .feedback-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 8px 25px var(--card-shadow);
+      }
+      
+      .feedback-author {
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+      }
+      
+      .feedback-date {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+      
+      .feedback-text {
+        line-height: 1.6;
+        color: var(--foreground);
+      }
+      
+      .feedback-rating {
+        margin-top: 1rem;
+        display: flex;
+        gap: 0.25rem;
+      }
+      
+      .feedback-rating .star {
+        font-size: 1.2rem;
+        color: #ffd700;
+      }
+      
+      .tab-content {
+        display: none;
+      }
+      
+      .tab-content.active {
+        display: block;
+      }
+      
+      .feedback-form {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 5px 20px var(--card-shadow);
+      }
+      
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+      
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--foreground);
+      }
+      
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: 2px solid var(--input-border);
+        border-radius: 8px;
+        font-size: 1rem;
+        background: var(--input-bg);
+        color: var(--foreground);
+        transition: border-color 0.3s ease;
+      }
+      
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        border-color: var(--primary);
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 77, 64, 0.1);
+      }
+      
+      .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+      
+      .rating-group {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+      
+      .rating-stars {
+        display: flex;
+        gap: 0.25rem;
+      }
+      
+      .star {
+        font-size: 1.5rem;
+        color: #ddd;
+        cursor: pointer;
+        transition: color 0.2s ease;
+      }
+      
+      .star.filled {
+        color: #ffd700;
+      }
+      
+      .star:hover {
+        color: #ffd700;
+      }
+      
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      
+      .submit-btn {
+        background: var(--primary);
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+      }
+      
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 77, 64, 0.3);
+      }
+      
+      .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+      
+      .success-message {
+        background: #d4edda;
+        color: #155724;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        border: 1px solid #c3e6cb;
+        display: none;
+      }
+      
+      .error-message {
+        background: #f8d7da;
+        color: #721c24;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        border: 1px solid #f5c6cb;
+        display: none;
+      }
+      
+      .feedback-list {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 5px 20px var(--card-shadow);
+      }
+      
+      .feedback-item {
+        border-bottom: 1px solid var(--input-border);
+        padding: 1.5rem 0;
+      }
+      
+      .feedback-item:last-child {
+        border-bottom: none;
+      }
+      
+      .feedback-meta {
+        display: flex;
+        justify-content: between;
+        align-items: center;
+        margin-bottom: 1rem;
+        gap: 1rem;
+      }
+      
+      .feedback-author {
+        font-weight: 600;
+        color: var(--primary);
+      }
+      
+      .feedback-date {
+        color: #666;
+        font-size: 0.9rem;
+      }
+      
+      .feedback-rating {
+        color: #ffd700;
+      }
+      
+      .feedback-content {
+        color: var(--foreground);
+        line-height: 1.6;
+      }
+      
+      .feedback-category {
+        display: inline-block;
+        background: var(--primary);
+        color: white;
+        padding: 0.2rem 0.6rem;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        margin-top: 0.5rem;
+      }
+      
+      @media (max-width: 768px) {
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        
+        .feedback-tabs {
+          flex-direction: column;
+        }
+        
+        .tab-btn {
+          padding: 0.8rem 1rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="Alumni_home.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="members.html">Members</a></li>
+          <li><a href="donation.html">Donations</a></li>
+          <li><a href="jobportal.html">Job Postings</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="feedback-container">
+      <div class="feedback-header">
+        <h1>Feedback & Suggestions</h1>
+        <p>Help us improve by sharing your thoughts and suggestions</p>
+      </div>
+
+      <div class="feedback-tabs">
+        <button class="tab-btn active" onclick="switchTab('give-feedback')">Give Feedback</button>
+        <button class="tab-btn" onclick="switchTab('view-feedback')">View Feedback</button>
+        <button class="tab-btn" onclick="switchTab('suggestions')">Suggestions</button>
+      </div>
+
+      <!-- Give Feedback Tab -->
+      <div id="give-feedback" class="tab-content active">
+        <div class="feedback-form">
+          <div class="success-message" id="successMessage">
+            Thank you for your feedback! We appreciate your input and will review it carefully.
+          </div>
+          
+          <div class="error-message" id="errorMessage">
+            Please fill in all required fields before submitting.
+          </div>
+          
+          <form id="feedbackForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name *</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="category">Category *</label>
+                <select id="category" name="category" required>
+                  <option value="">Select Category</option>
+                  <option value="website">Website</option>
+                  <option value="events">Events</option>
+                  <option value="services">Services</option>
+                  <option value="communication">Communication</option>
+                  <option value="suggestion">Suggestion</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="graduation-year">Graduation Year</label>
+                <input type="number" id="graduation-year" name="graduation-year" min="1950" max="2030" />
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>Overall Rating *</label>
+              <div class="rating-group">
+                <div class="rating-stars" id="overallRating">
+                  <span class="star" data-rating="1">★</span>
+                  <span class="star" data-rating="2">★</span>
+                  <span class="star" data-rating="3">★</span>
+                  <span class="star" data-rating="4">★</span>
+                  <span class="star" data-rating="5">★</span>
+                </div>
+                <span id="ratingText">Select a rating</span>
+              </div>
+              <input type="hidden" id="rating" name="rating" required />
+            </div>
+            
+            <div class="form-group">
+              <label for="subject">Subject *</label>
+              <input type="text" id="subject" name="subject" placeholder="Brief summary of your feedback" required />
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Your Feedback *</label>
+              <textarea id="message" name="message" placeholder="Please provide detailed feedback..." required></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="suggestions">Suggestions for Improvement</label>
+              <textarea id="suggestions" name="suggestions" placeholder="Any specific suggestions you'd like to share..."></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Submit Feedback</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- View Feedback Tab -->
+      <div id="view-feedback" class="tab-content">
+        <div class="feedback-list">
+          <h3 style="margin-bottom: 2rem; color: var(--primary);">Recent Feedback from Alumni</h3>
+          
+          <div class="feedback-item">
+            <div class="feedback-meta">
+              <span class="feedback-author">Sarah Johnson</span>
+              <span class="feedback-rating">★★★★★</span>
+              <span class="feedback-date">2 days ago</span>
+            </div>
+            <div class="feedback-content">
+              The new website design is fantastic! Much more user-friendly and the dark mode is a great addition. Looking forward to more events being listed here.
+            </div>
+            <span class="feedback-category">Website</span>
+          </div>
+          
+          <div class="feedback-item">
+            <div class="feedback-meta">
+              <span class="feedback-author">Michael Chen</span>
+              <span class="feedback-rating">★★★★☆</span>
+              <span class="feedback-date">1 week ago</span>
+            </div>
+            <div class="feedback-content">
+              Great job on organizing the networking events. Would love to see more industry-specific meetups, especially for tech professionals.
+            </div>
+            <span class="feedback-category">Events</span>
+          </div>
+          
+          <div class="feedback-item">
+            <div class="feedback-meta">
+              <span class="feedback-author">Emily Rodriguez</span>
+              <span class="feedback-rating">★★★★★</span>
+              <span class="feedback-date">2 weeks ago</span>
+            </div>
+            <div class="feedback-content">
+              The job portal is incredibly helpful! I found my current position through connections made here. Thank you for facilitating these opportunities.
+            </div>
+            <span class="feedback-category">Services</span>
+          </div>
+          
+          <div class="feedback-item">
+            <div class="feedback-meta">
+              <span class="feedback-author">David Kim</span>
+              <span class="feedback-rating">★★★☆☆</span>
+              <span class="feedback-date">3 weeks ago</span>
+            </div>
+            <div class="feedback-content">
+              The mobile experience could use some improvement. Some buttons are hard to tap on smaller screens. Otherwise, great platform!
+            </div>
+            <span class="feedback-category">Website</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Suggestions Tab -->
+      <div id="suggestions" class="tab-content">
+        <div class="feedback-form">
+          <h3 style="margin-bottom: 2rem; color: var(--primary);">Share Your Ideas</h3>
+          
+          <form id="suggestionForm">
+            <div class="form-group">
+              <label for="suggestionTitle">Suggestion Title *</label>
+              <input type="text" id="suggestionTitle" name="suggestionTitle" placeholder="Brief title for your suggestion" required />
+            </div>
+            
+            <div class="form-group">
+              <label for="suggestionType">Type of Suggestion *</label>
+              <select id="suggestionType" name="suggestionType" required>
+                <option value="">Select Type</option>
+                <option value="feature">New Feature</option>
+                <option value="improvement">Improvement</option>
+                <option value="event">Event Idea</option>
+                <option value="service">New Service</option>
+                <option value="partnership">Partnership</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="suggestionDetails">Detailed Description *</label>
+              <textarea id="suggestionDetails" name="suggestionDetails" placeholder="Please describe your suggestion in detail..." required></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="expectedBenefit">Expected Benefit</label>
+              <textarea id="expectedBenefit" name="expectedBenefit" placeholder="How would this suggestion benefit the alumni community?"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="implementation">Implementation Ideas</label>
+              <textarea id="implementation" name="implementation" placeholder="Any ideas on how this could be implemented?"></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Submit Suggestion</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Alumni Association. All rights reserved.</p>
+    </footer>
+
+    <script>
+      let currentRating = 0;
+      
+      function switchTab(tabName) {
+        // Hide all tab contents
+        document.querySelectorAll('.tab-content').forEach(tab => {
+          tab.classList.remove('active');
+        });
+        
+        // Remove active class from all tab buttons
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        
+        // Show selected tab content
+        document.getElementById(tabName).classList.add('active');
+        
+        // Add active class to clicked button
+        event.target.classList.add('active');
+      }
+      
+      function setRating(rating) {
+        currentRating = rating;
+        document.getElementById('rating').value = rating;
+        
+        const stars = document.querySelectorAll('.star');
+        const ratingText = document.getElementById('ratingText');
+        
+        stars.forEach((star, index) => {
+          if (index < rating) {
+            star.classList.add('filled');
+          } else {
+            star.classList.remove('filled');
+          }
+        });
+        
+        const ratingLabels = {
+          1: 'Poor',
+          2: 'Fair', 
+          3: 'Good',
+          4: 'Very Good',
+          5: 'Excellent'
+        };
+        
+        ratingText.textContent = ratingLabels[rating];
+      }
+      
+      function showMessage(type, message) {
+        const successMsg = document.getElementById('successMessage');
+        const errorMsg = document.getElementById('errorMessage');
+        
+        // Hide both messages first
+        successMsg.style.display = 'none';
+        errorMsg.style.display = 'none';
+        
+        if (type === 'success') {
+          successMsg.textContent = message;
+          successMsg.style.display = 'block';
+          successMsg.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          errorMsg.textContent = message;
+          errorMsg.style.display = 'block';
+          errorMsg.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+      
+      function validateForm(formId) {
+        const form = document.getElementById(formId);
+        const requiredFields = form.querySelectorAll('[required]');
+        
+        for (let field of requiredFields) {
+          if (!field.value.trim()) {
+            return false;
+          }
+        }
+        
+        if (formId === 'feedbackForm' && currentRating === 0) {
+          return false;
+        }
+        
+        return true;
+      }
+      
+      // Initialize page
+      document.addEventListener('DOMContentLoaded', function() {
+        // Rating stars functionality
+        document.querySelectorAll('.star').forEach(star => {
+          star.addEventListener('click', function() {
+            const rating = parseInt(this.dataset.rating);
+            setRating(rating);
+          });
+          
+          star.addEventListener('mouseover', function() {
+            const rating = parseInt(this.dataset.rating);
+            const stars = document.querySelectorAll('.star');
+            
+            stars.forEach((s, index) => {
+              if (index < rating) {
+                s.style.color = '#ffd700';
+              } else {
+                s.style.color = '#ddd';
+              }
+            });
+          });
+        });
+        
+        // Reset star colors on mouse leave
+        document.getElementById('overallRating').addEventListener('mouseleave', function() {
+          const stars = document.querySelectorAll('.star');
+          stars.forEach((star, index) => {
+            if (index < currentRating) {
+              star.style.color = '#ffd700';
+            } else {
+              star.style.color = '#ddd';
+            }
+          });
+        });
+        
+        // Feedback form submission
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          if (!validateForm('feedbackForm')) {
+            showMessage('error', 'Please fill in all required fields and provide a rating.');
+            return;
+          }
+          
+          // Simulate form submission
+          const submitBtn = this.querySelector('.submit-btn');
+          submitBtn.textContent = 'Submitting...';
+          submitBtn.disabled = true;
+          
+          setTimeout(() => {
+            showMessage('success', 'Thank you for your feedback! We appreciate your input and will review it carefully.');
+            this.reset();
+            currentRating = 0;
+            setRating(0);
+            document.getElementById('ratingText').textContent = 'Select a rating';
+            
+            submitBtn.textContent = 'Submit Feedback';
+            submitBtn.disabled = false;
+          }, 1500);
+        });
+        
+        // Suggestion form submission
+        document.getElementById('suggestionForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          if (!validateForm('suggestionForm')) {
+            showMessage('error', 'Please fill in all required fields.');
+            return;
+          }
+          
+          // Simulate form submission
+          const submitBtn = this.querySelector('.submit-btn');
+          submitBtn.textContent = 'Submitting...';
+          submitBtn.disabled = true;
+          
+          setTimeout(() => {
+            showMessage('success', 'Thank you for your suggestion! We will review it and consider it for future improvements.');
+            this.reset();
+            
+            submitBtn.textContent = 'Submit Suggestion';
+            submitBtn.disabled = false;
+          }, 1500);
+        });
+      });
+    </script>
+    <script src="assets/js/theme-toggle.js"></script>
+  </body>
+</html>
