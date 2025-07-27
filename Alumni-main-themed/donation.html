@@ -5,36 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Alumni Association - Donate</title>
     <link rel="stylesheet" href="assets/css/donation.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
-    <div class="donation-container">
-      <div class="donation-form">
-        <h2>Support Our Alumni Association</h2>
-        <p>
-          Your donation will help us continue our mission and support alumni
-          activities.
-        </p>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="Alumni_home.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="members.html">Members</a></li>
+          <li><a href="donation.html">Donations</a></li>
+          <li><a href="jobportal.html">Job Postings</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+        </ul>
+      </nav>
+    </header>
 
-        <form action="thankyou.html" method="post">
+    <main>
+      <div class="donation-container">
+        <div class="donation-form">
+          <h2>Support Our Alumni Association</h2>
+          <p>
+            Your donation will help us continue our mission and support alumni
+            activities. Every contribution makes a difference in building a stronger community.
+          </p>
+
+        <form action="thankyou.html" method="post" id="donationForm">
+          <div class="success-message" id="successMessage" style="display: none;">
+            Thank you! Your donation is being processed...
+          </div>
+          
+          <div class="error-message" id="errorMessage" style="display: none; background: #f8d7da; color: #721c24; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+            Please correct the errors below.
+          </div>
+
           <label for="name">Full Name</label>
           <input type="text" id="name" name="name" required />
+          <div class="field-error" id="nameError"></div>
 
           <label for="email">Email</label>
           <input type="email" id="email" name="email" required />
+          <div class="field-error" id="emailError"></div>
 
-          <label for="amount">Donation Amount</label>
-          <input type="number" id="amount" name="amount" min="1" required />
+          <label for="amount">Donation Amount ($)</label>
+          <input type="number" id="amount" name="amount" min="1" max="100000" required />
+          <div class="field-error" id="amountError"></div>
 
           <label for="payment-method">Payment Method</label>
           <select id="payment-method" name="payment-method" required>
+            <option value="">Select Payment Method</option>
             <option value="credit-card">Credit Card</option>
             <option value="paypal">PayPal</option>
             <option value="bank-transfer">Bank Transfer</option>
           </select>
+          <div class="field-error" id="payment-methodError"></div>
 
           <div id="credit-card-info" class="payment-details">
             <label for="card-number">Card Number</label>
-            <input type="text" id="card-number" name="card-number" required />
+            <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456" maxlength="19" />
+            <div class="field-error" id="card-numberError"></div>
 
             <label for="expiry-date">Expiry Date</label>
             <input
@@ -42,37 +72,314 @@
               id="expiry-date"
               name="expiry-date"
               placeholder="MM/YY"
-              required
+              maxlength="5"
             />
+            <div class="field-error" id="expiry-dateError"></div>
 
             <label for="cvv">CVV</label>
-            <input type="text" id="cvv" name="cvv" required />
+            <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="4" />
+            <div class="field-error" id="cvvError"></div>
           </div>
 
           <div id="paypal-info" class="payment-details">
             <p>You will be redirected to PayPal to complete your donation.</p>
           </div>
 
-          <button type="submit">Donate Now</button>
+          <div id="bank-transfer-info" class="payment-details">
+            <p>Bank transfer details will be provided after form submission.</p>
+            <label for="bank-note">Additional Notes (Optional)</label>
+            <textarea id="bank-note" name="bank-note" rows="3" placeholder="Any special instructions..."></textarea>
+          </div>
+
+          <div class="progress-bar" id="progressBar" style="display: none;">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+
+          <button type="submit" id="submitBtn">
+            <span class="btn-text">Donate Now</span>
+            <span class="btn-spinner" style="display: none;">Processing...</span>
+          </button>
         </form>
       </div>
     </div>
 
     <script>
-      document
-        .getElementById("payment-method")
-        .addEventListener("change", function () {
-          const method = this.value;
-          document.querySelectorAll(".payment-details").forEach(function (el) {
-            el.style.display = "none";
+      // Form validation and payment processing
+      class DonationForm {
+        constructor() {
+          this.form = document.getElementById('donationForm');
+          this.submitBtn = document.getElementById('submitBtn');
+          this.init();
+        }
+
+        init() {
+          this.setupPaymentMethodToggle();
+          this.setupFormValidation();
+          this.setupCardFormatting();
+          this.setupFormSubmission();
+        }
+
+        setupPaymentMethodToggle() {
+          const paymentMethod = document.getElementById("payment-method");
+          const paymentDetails = document.querySelectorAll(".payment-details");
+
+          paymentMethod.addEventListener("change", () => {
+            const method = paymentMethod.value;
+            
+            // Hide all payment details
+            paymentDetails.forEach(detail => detail.style.display = "none");
+            
+            // Show selected payment method details
+            if (method === "credit-card") {
+              document.getElementById("credit-card-info").style.display = "block";
+            } else if (method === "paypal") {
+              document.getElementById("paypal-info").style.display = "block";
+            } else if (method === "bank-transfer") {
+              document.getElementById("bank-transfer-info").style.display = "block";
+            }
           });
-          if (method === "credit-card") {
-            document.getElementById("credit-card-info").style.display = "block";
-          } else if (method === "paypal") {
-            document.getElementById("paypal-info").style.display = "block";
+        }
+
+        setupCardFormatting() {
+          const cardNumber = document.getElementById('card-number');
+          const expiryDate = document.getElementById('expiry-date');
+          const cvv = document.getElementById('cvv');
+
+          // Format card number
+          cardNumber.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\s/g, '');
+            let formattedValue = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+            e.target.value = formattedValue;
+          });
+
+          // Format expiry date
+          expiryDate.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+              value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            e.target.value = value;
+          });
+
+          // CVV numeric only
+          cvv.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\D/g, '');
+          });
+        }
+
+        setupFormValidation() {
+          const inputs = this.form.querySelectorAll('input[required], select[required]');
+          
+          inputs.forEach(input => {
+            input.addEventListener('blur', () => this.validateField(input));
+            input.addEventListener('input', () => this.clearFieldError(input));
+          });
+        }
+
+        validateField(field) {
+          const fieldName = field.name;
+          const value = field.value.trim();
+          let isValid = true;
+          let errorMessage = '';
+
+          // Clear previous error
+          this.clearFieldError(field);
+
+          // Required field validation
+          if (field.hasAttribute('required') && !value) {
+            errorMessage = 'This field is required';
+            isValid = false;
           }
-        });
+          // Email validation
+          else if (field.type === 'email' && value) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+              errorMessage = 'Please enter a valid email address';
+              isValid = false;
+            }
+          }
+          // Amount validation
+          else if (fieldName === 'amount' && value) {
+            const amount = parseFloat(value);
+            if (amount < 1) {
+              errorMessage = 'Amount must be at least $1';
+              isValid = false;
+            } else if (amount > 100000) {
+              errorMessage = 'Amount cannot exceed $100,000';
+              isValid = false;
+            }
+          }
+          // Card number validation
+          else if (fieldName === 'card-number' && value) {
+            const cardRegex = /^\d{4}\s\d{4}\s\d{4}\s\d{4}$/;
+            if (!cardRegex.test(value)) {
+              errorMessage = 'Please enter a valid card number';
+              isValid = false;
+            }
+          }
+          // Expiry date validation
+          else if (fieldName === 'expiry-date' && value) {
+            const expiryRegex = /^\d{2}\/\d{2}$/;
+            if (!expiryRegex.test(value)) {
+              errorMessage = 'Please enter date in MM/YY format';
+              isValid = false;
+            } else {
+              const [month, year] = value.split('/');
+              const currentDate = new Date();
+              const currentYear = currentDate.getFullYear() % 100;
+              const currentMonth = currentDate.getMonth() + 1;
+              
+              if (parseInt(month) < 1 || parseInt(month) > 12) {
+                errorMessage = 'Invalid month';
+                isValid = false;
+              } else if (parseInt(year) < currentYear || 
+                        (parseInt(year) === currentYear && parseInt(month) < currentMonth)) {
+                errorMessage = 'Card has expired';
+                isValid = false;
+              }
+            }
+          }
+          // CVV validation
+          else if (fieldName === 'cvv' && value) {
+            const cvvRegex = /^\d{3,4}$/;
+            if (!cvvRegex.test(value)) {
+              errorMessage = 'Please enter a valid CVV';
+              isValid = false;
+            }
+          }
+
+          if (!isValid) {
+            this.showFieldError(field, errorMessage);
+          }
+
+          return isValid;
+        }
+
+        showFieldError(field, message) {
+          field.classList.add('form-error');
+          const errorDiv = document.getElementById(field.name + 'Error');
+          if (errorDiv) {
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            errorDiv.style.color = '#e74c3c';
+            errorDiv.style.fontSize = '0.85rem';
+            errorDiv.style.marginTop = '0.5rem';
+          }
+        }
+
+        clearFieldError(field) {
+          field.classList.remove('form-error');
+          const errorDiv = document.getElementById(field.name + 'Error');
+          if (errorDiv) {
+            errorDiv.style.display = 'none';
+            errorDiv.textContent = '';
+          }
+        }
+
+        validateForm() {
+          const paymentMethod = document.getElementById('payment-method').value;
+          let isValid = true;
+
+          // Validate all required fields
+          const requiredFields = this.form.querySelectorAll('input[required], select[required]');
+          requiredFields.forEach(field => {
+            if (!this.validateField(field)) {
+              isValid = false;
+            }
+          });
+
+          // Validate payment method specific fields
+          if (paymentMethod === 'credit-card') {
+            const cardFields = ['card-number', 'expiry-date', 'cvv'];
+            cardFields.forEach(fieldName => {
+              const field = document.getElementById(fieldName);
+              if (!this.validateField(field)) {
+                isValid = false;
+              }
+            });
+          }
+
+          return isValid;
+        }
+
+        showProgress(progress) {
+          const progressBar = document.getElementById('progressBar');
+          const progressFill = document.getElementById('progressFill');
+          
+          progressBar.style.display = 'block';
+          progressFill.style.width = progress + '%';
+        }
+
+        showLoadingState() {
+          this.submitBtn.disabled = true;
+          this.submitBtn.querySelector('.btn-text').style.display = 'none';
+          this.submitBtn.querySelector('.btn-spinner').style.display = 'inline';
+          this.submitBtn.style.opacity = '0.7';
+        }
+
+        hideLoadingState() {
+          this.submitBtn.disabled = false;
+          this.submitBtn.querySelector('.btn-text').style.display = 'inline';
+          this.submitBtn.querySelector('.btn-spinner').style.display = 'none';
+          this.submitBtn.style.opacity = '1';
+        }
+
+        setupFormSubmission() {
+          this.form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Hide previous messages
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+
+            // Validate form
+            if (!this.validateForm()) {
+              document.getElementById('errorMessage').style.display = 'block';
+              document.getElementById('errorMessage').scrollIntoView({ behavior: 'smooth' });
+              return;
+            }
+
+            // Show loading state
+            this.showLoadingState();
+
+            // Simulate payment processing with progress
+            const steps = [
+              { progress: 20, message: 'Validating payment information...' },
+              { progress: 40, message: 'Connecting to payment processor...' },
+              { progress: 60, message: 'Processing transaction...' },
+              { progress: 80, message: 'Confirming donation...' },
+              { progress: 100, message: 'Complete!' }
+            ];
+
+            for (let i = 0; i < steps.length; i++) {
+              await new Promise(resolve => setTimeout(resolve, 800));
+              this.showProgress(steps[i].progress);
+              
+              if (i === steps.length - 1) {
+                // Store data for thank you page
+                const formData = new FormData(this.form);
+                localStorage.setItem('donationAmount', formData.get('amount'));
+                localStorage.setItem('paymentMethod', formData.get('payment-method'));
+                
+                // Redirect to thank you page
+                window.location.href = 'thankyou.html?amount=' + formData.get('amount') + '&method=' + formData.get('payment-method');
+              }
+            }
+          });
+        }
+      }
+
+      // Initialize donation form when page loads
+      document.addEventListener('DOMContentLoaded', () => {
+        new DonationForm();
+      });
     </script>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Alumni Association. All rights reserved.</p>
+    </footer>
+
     <script src="assets/js/theme-toggle.js"></script>
   </body>
 </html>

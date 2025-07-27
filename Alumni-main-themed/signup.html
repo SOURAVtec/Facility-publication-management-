@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alumni Association - Sign Up</title>
+    <link rel="stylesheet" href="assets/css/login.css" />
+    <style>
+      .signup-form {
+        max-width: 500px;
+      }
+      
+      .form-row {
+        display: flex;
+        gap: 1rem;
+      }
+      
+      .form-group {
+        flex: 1;
+        margin-bottom: 1rem;
+      }
+      
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--foreground);
+      }
+      
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid var(--input-border);
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+        background: var(--input-bg);
+        color: var(--foreground);
+      }
+      
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        border-color: var(--input-focus);
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 77, 64, 0.1);
+      }
+      
+      .form-group textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+      
+      .password-strength {
+        margin-top: 0.5rem;
+        font-size: 0.8rem;
+      }
+      
+      .strength-weak { color: #e74c3c; }
+      .strength-medium { color: #f39c12; }
+      .strength-strong { color: #27ae60; }
+      
+      .form-checkbox {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin: 1rem 0;
+      }
+      
+      .form-checkbox input[type="checkbox"] {
+        width: auto;
+        margin: 0;
+      }
+      
+      .form-checkbox label {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        margin: 0;
+      }
+      
+      .error-message {
+        color: #e74c3c;
+        font-size: 0.8rem;
+        margin-top: 0.25rem;
+        display: none;
+      }
+      
+      .loading {
+        opacity: 0.7;
+        pointer-events: none;
+      }
+      
+      .loading-spinner {
+        display: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #ffffff;
+        border-top: 2px solid transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-right: 0.5rem;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="login-container">
+      <div class="login-form signup-form">
+        <h2>Create Your Account</h2>
+        <p style="text-align: center; margin-bottom: 1.5rem; color: #666;">
+          Join the Alumni Association community
+        </p>
+        
+        <form id="signupForm" action="dashboard.html" method="post" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name *</label>
+              <input type="text" id="firstName" name="firstName" required />
+              <div class="error-message" id="firstNameError"></div>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name *</label>
+              <input type="text" id="lastName" name="lastName" required />
+              <div class="error-message" id="lastNameError"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required />
+            <div class="error-message" id="emailError"></div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="graduationYear">Graduation Year *</label>
+              <select id="graduationYear" name="graduationYear" required>
+                <option value="">Select Year</option>
+                <!-- Years will be populated by JavaScript -->
+              </select>
+              <div class="error-message" id="graduationYearError"></div>
+            </div>
+            <div class="form-group">
+              <label for="department">Department *</label>
+              <select id="department" name="department" required>
+                <option value="">Select Department</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Electrical Engineering">Electrical Engineering</option>
+                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                <option value="Civil Engineering">Civil Engineering</option>
+                <option value="Business Administration">Business Administration</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Physics">Physics</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Other">Other</option>
+              </select>
+              <div class="error-message" id="departmentError"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="currentProfession">Current Profession</label>
+            <input type="text" id="currentProfession" name="currentProfession" placeholder="e.g., Software Engineer, Manager, etc." />
+          </div>
+
+          <div class="form-group">
+            <label for="company">Current Company/Organization</label>
+            <input type="text" id="company" name="company" placeholder="Your current workplace" />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password *</label>
+            <input type="password" id="password" name="password" required />
+            <div id="passwordStrength" class="password-strength"></div>
+            <div class="error-message" id="passwordError"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password *</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required />
+            <div class="error-message" id="confirmPasswordError"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="bio">Brief Bio (Optional)</label>
+            <textarea id="bio" name="bio" placeholder="Tell us a bit about yourself..."></textarea>
+          </div>
+
+          <div class="form-checkbox">
+            <input type="checkbox" id="terms" name="terms" required />
+            <label for="terms">
+              I agree to the <a href="#" style="color: var(--link);">Terms of Service</a> 
+              and <a href="#" style="color: var(--link);">Privacy Policy</a> *
+            </label>
+            <div class="error-message" id="termsError"></div>
+          </div>
+
+          <div class="form-checkbox">
+            <input type="checkbox" id="newsletter" name="newsletter" />
+            <label for="newsletter">
+              Subscribe to our newsletter for updates and events
+            </label>
+          </div>
+
+          <button type="submit">
+            <span class="loading-spinner"></span>
+            Create Account
+          </button>
+        </form>
+        
+        <p class="signup-text">
+          Already have an account? <a href="login.html">Sign In</a>
+        </p>
+      </div>
+    </div>
+
+    <script>
+      // Populate graduation years
+      function populateGraduationYears() {
+        const select = document.getElementById('graduationYear');
+        const currentYear = new Date().getFullYear();
+        
+        for (let year = currentYear; year >= 1950; year--) {
+          const option = document.createElement('option');
+          option.value = year;
+          option.textContent = year;
+          select.appendChild(option);
+        }
+      }
+
+      // Password strength checker
+      function checkPasswordStrength(password) {
+        const strengthIndicator = document.getElementById('passwordStrength');
+        let strength = 0;
+        let feedback = '';
+
+        if (password.length >= 8) strength++;
+        if (/[a-z]/.test(password)) strength++;
+        if (/[A-Z]/.test(password)) strength++;
+        if (/[0-9]/.test(password)) strength++;
+        if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+        switch (strength) {
+          case 0:
+          case 1:
+            feedback = 'Weak password';
+            strengthIndicator.className = 'password-strength strength-weak';
+            break;
+          case 2:
+          case 3:
+            feedback = 'Medium strength password';
+            strengthIndicator.className = 'password-strength strength-medium';
+            break;
+          case 4:
+          case 5:
+            feedback = 'Strong password';
+            strengthIndicator.className = 'password-strength strength-strong';
+            break;
+        }
+
+        strengthIndicator.textContent = feedback;
+        return strength >= 3;
+      }
+
+      // Form validation
+      function validateForm() {
+        let isValid = true;
+        const form = document.getElementById('signupForm');
+        const formData = new FormData(form);
+
+        // Clear previous errors
+        document.querySelectorAll('.error-message').forEach(el => {
+          el.style.display = 'none';
+          el.textContent = '';
+        });
+
+        // Validate required fields
+        const requiredFields = ['firstName', 'lastName', 'email', 'graduationYear', 'department', 'password', 'confirmPassword'];
+        
+        requiredFields.forEach(field => {
+          const value = formData.get(field);
+          if (!value || value.trim() === '') {
+            showError(field + 'Error', 'This field is required');
+            isValid = false;
+          }
+        });
+
+        // Email validation
+        const email = formData.get('email');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email && !emailRegex.test(email)) {
+          showError('emailError', 'Please enter a valid email address');
+          isValid = false;
+        }
+
+        // Password validation
+        const password = formData.get('password');
+        if (password && !checkPasswordStrength(password)) {
+          showError('passwordError', 'Password must be at least 8 characters with mixed case, numbers, and symbols');
+          isValid = false;
+        }
+
+        // Confirm password validation
+        const confirmPassword = formData.get('confirmPassword');
+        if (password && confirmPassword && password !== confirmPassword) {
+          showError('confirmPasswordError', 'Passwords do not match');
+          isValid = false;
+        }
+
+        // Terms validation
+        const terms = formData.get('terms');
+        if (!terms) {
+          showError('termsError', 'You must agree to the terms and conditions');
+          isValid = false;
+        }
+
+        return isValid;
+      }
+
+      function showError(elementId, message) {
+        const errorElement = document.getElementById(elementId);
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+      }
+
+      // Initialize page
+      document.addEventListener('DOMContentLoaded', function() {
+        populateGraduationYears();
+
+        // Password strength checking
+        document.getElementById('password').addEventListener('input', function() {
+          checkPasswordStrength(this.value);
+        });
+
+        // Form submission
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          if (validateForm()) {
+            // Show loading state
+            const button = this.querySelector('button[type="submit"]');
+            const spinner = button.querySelector('.loading-spinner');
+            
+            button.classList.add('loading');
+            spinner.style.display = 'inline-block';
+            button.textContent = 'Creating Account...';
+            
+            // Simulate API call
+            setTimeout(() => {
+              alert('Account created successfully! Redirecting to dashboard...');
+              window.location.href = 'dashboard.html';
+            }, 2000);
+          }
+        });
+
+        // Real-time validation
+        const inputs = document.querySelectorAll('input, select');
+        inputs.forEach(input => {
+          input.addEventListener('blur', function() {
+            if (this.hasAttribute('required') && !this.value.trim()) {
+              showError(this.id + 'Error', 'This field is required');
+            }
+          });
+        });
+      });
+    </script>
+    <script src="assets/js/theme-toggle.js"></script>
+  </body>
+</html>

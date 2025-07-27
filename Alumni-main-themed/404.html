@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Not Found - Alumni Association</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .error-container {
+        min-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem;
+      }
+      
+      .error-code {
+        font-size: 8rem;
+        font-weight: bold;
+        color: var(--primary);
+        margin: 0;
+        line-height: 1;
+        animation: bounce 2s infinite;
+      }
+      
+      .error-title {
+        font-size: 2.5rem;
+        color: var(--foreground);
+        margin: 1rem 0;
+        font-weight: 700;
+      }
+      
+      .error-message {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 2rem;
+        max-width: 600px;
+        line-height: 1.6;
+      }
+      
+      .error-actions {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+      }
+      
+      .btn-secondary {
+        background: transparent;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+      }
+      
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      }
+      
+      .error-illustration {
+        font-size: 4rem;
+        margin-bottom: 2rem;
+        opacity: 0.7;
+      }
+      
+      .search-form {
+        max-width: 400px;
+        width: 100%;
+        margin: 2rem 0;
+        position: relative;
+      }
+      
+      .search-input {
+        width: 100%;
+        padding: 1rem 1rem 1rem 3rem;
+        border: 2px solid var(--input-border);
+        border-radius: 25px;
+        font-size: 1rem;
+        background: var(--input-bg);
+        color: var(--foreground);
+      }
+      
+      .search-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #666;
+      }
+      
+      .helpful-links {
+        margin-top: 3rem;
+        max-width: 600px;
+      }
+      
+      .helpful-links h3 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+      
+      .links-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        text-align: left;
+      }
+      
+      .link-item {
+        background: var(--card-bg);
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px var(--card-shadow);
+        transition: transform 0.3s ease;
+      }
+      
+      .link-item:hover {
+        transform: translateY(-2px);
+      }
+      
+      .link-item a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .link-item p {
+        color: #666;
+        font-size: 0.9rem;
+        margin: 0.5rem 0 0 0;
+      }
+      
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-10px);
+        }
+        60% {
+          transform: translateY(-5px);
+        }
+      }
+      
+      @media (max-width: 768px) {
+        .error-code {
+          font-size: 6rem;
+        }
+        
+        .error-title {
+          font-size: 2rem;
+        }
+        
+        .error-actions {
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        .btn {
+          width: 100%;
+          max-width: 300px;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="Alumni_home.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="members.html">Members</a></li>
+          <li><a href="donation.html">Donations</a></li>
+          <li><a href="jobportal.html">Job Postings</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="error-container">
+      <div class="error-illustration">🔍</div>
+      <h1 class="error-code">404</h1>
+      <h2 class="error-title">Page Not Found</h2>
+      <p class="error-message">
+        Oops! The page you're looking for seems to have wandered off. 
+        It might have been moved, deleted, or you entered the wrong URL.
+        Don't worry, it happens to the best of us!
+      </p>
+
+      <div class="search-form">
+        <div class="search-icon">🔍</div>
+        <input 
+          type="text" 
+          class="search-input" 
+          placeholder="Search for what you're looking for..."
+          id="searchInput"
+        />
+      </div>
+
+      <div class="error-actions">
+        <a href="Alumni_home.html" class="btn btn-primary">
+          🏠 Go Home
+        </a>
+        <button onclick="history.back()" class="btn btn-secondary">
+          ← Go Back
+        </button>
+        <a href="feedback.html" class="btn btn-secondary">
+          📝 Report Issue
+        </a>
+      </div>
+
+      <div class="helpful-links">
+        <h3>Maybe you were looking for:</h3>
+        <div class="links-grid">
+          <div class="link-item">
+            <a href="Alumni_home.html">🏠 Home Page</a>
+            <p>Return to the main page</p>
+          </div>
+          <div class="link-item">
+            <a href="events.html">📅 Events</a>
+            <p>Upcoming alumni events</p>
+          </div>
+          <div class="link-item">
+            <a href="jobportal.html">💼 Jobs</a>
+            <p>Browse job opportunities</p>
+          </div>
+          <div class="link-item">
+            <a href="members.html">👥 Members</a>
+            <p>Connect with alumni</p>
+          </div>
+          <div class="link-item">
+            <a href="donation.html">💝 Donate</a>
+            <p>Support the association</p>
+          </div>
+          <div class="link-item">
+            <a href="about.html">ℹ️ About Us</a>
+            <p>Learn about our mission</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Alumni Association. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // Simple search functionality
+      document.getElementById('searchInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          const searchTerm = this.value.toLowerCase().trim();
+          
+          if (!searchTerm) return;
+          
+          // Simple keyword-based navigation
+          const searchMap = {
+            'home': 'Alumni_home.html',
+            'about': 'about.html',
+            'events': 'events.html',
+            'event': 'events.html',
+            'members': 'members.html',
+            'member': 'members.html',
+            'directory': 'members.html',
+            'jobs': 'jobportal.html',
+            'job': 'jobportal.html',
+            'career': 'jobportal.html',
+            'work': 'jobportal.html',
+            'donate': 'donation.html',
+            'donation': 'donation.html',
+            'support': 'donation.html',
+            'feedback': 'feedback.html',
+            'contact': 'feedback.html',
+            'login': 'login.html',
+            'signup': 'signup.html',
+            'register': 'signup.html'
+          };
+          
+          for (const [keyword, url] of Object.entries(searchMap)) {
+            if (searchTerm.includes(keyword)) {
+              window.location.href = url;
+              return;
+            }
+          }
+          
+          // If no match found, show alert
+          alert(`Sorry, no results found for "${this.value}". Try browsing our helpful links below!`);
+        }
+      });
+
+      // Add some animation when page loads
+      document.addEventListener('DOMContentLoaded', function() {
+        const elements = document.querySelectorAll('.error-illustration, .error-code, .error-title, .error-message');
+        
+        elements.forEach((el, index) => {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(20px)';
+          
+          setTimeout(() => {
+            el.style.transition = 'all 0.6s ease';
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+          }, index * 200);
+        });
+      });
+    </script>
+    <script src="assets/js/theme-toggle.js"></script>
+  </body>
+</html>

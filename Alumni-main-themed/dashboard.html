@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alumni Association - Dashboard</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="assets/css/dashboard.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="Alumni_home.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="members.html">Members</a></li>
+          <li><a href="donation.html">Donations</a></li>
+          <li><a href="jobportal.html">Job Postings</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+          <li><a href="login.html">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="dashboard-main">
+      <div class="dashboard-container">
+        <div class="welcome-section">
+          <h1>Welcome to Your Dashboard</h1>
+          <p>Manage your alumni profile and stay connected with the community.</p>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="dashboard-card">
+            <div class="card-icon">👤</div>
+            <h3>Profile</h3>
+            <p>Update your personal information and professional details</p>
+            <button class="card-btn" onclick="showSection('profile')">Manage Profile</button>
+          </div>
+
+          <div class="dashboard-card">
+            <div class="card-icon">📅</div>
+            <h3>Events</h3>
+            <p>View and register for upcoming alumni events</p>
+            <button class="card-btn" onclick="location.href='events.html'">View Events</button>
+          </div>
+
+          <div class="dashboard-card">
+            <div class="card-icon">💼</div>
+            <h3>Job Portal</h3>
+            <p>Browse job opportunities or post new openings</p>
+            <button class="card-btn" onclick="location.href='jobportal.html'">Browse Jobs</button>
+          </div>
+
+          <div class="dashboard-card">
+            <div class="card-icon">💰</div>
+            <h3>Donations</h3>
+            <p>Support the alumni association with your contributions</p>
+            <button class="card-btn" onclick="location.href='donation.html'">Donate Now</button>
+          </div>
+
+          <div class="dashboard-card">
+            <div class="card-icon">🤝</div>
+            <h3>Network</h3>
+            <p>Connect with fellow alumni and expand your network</p>
+            <button class="card-btn" onclick="location.href='members.html'">View Members</button>
+          </div>
+
+          <div class="dashboard-card">
+            <div class="card-icon">💬</div>
+            <h3>Feedback</h3>
+            <p>Share your thoughts and suggestions with us</p>
+            <button class="card-btn" onclick="location.href='feedback.html'">Give Feedback</button>
+          </div>
+        </div>
+
+        <div id="profile-section" class="dashboard-section" style="display: none;">
+          <h2>Profile Management</h2>
+          <form class="profile-form">
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" name="fullName" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="graduation-year">Graduation Year</label>
+              <input type="number" id="graduation-year" name="graduation-year" min="1950" max="2030" />
+            </div>
+            <div class="form-group">
+              <label for="profession">Current Profession</label>
+              <input type="text" id="profession" name="profession" />
+            </div>
+            <div class="form-group">
+              <label for="company">Company</label>
+              <input type="text" id="company" name="company" />
+            </div>
+            <div class="form-group">
+              <label for="bio">Bio</label>
+              <textarea id="bio" name="bio" rows="4"></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Update Profile</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Alumni Association. All rights reserved.</p>
+    </footer>
+
+    <script>
+      function showSection(sectionName) {
+        const section = document.getElementById(sectionName + '-section');
+        if (section.style.display === 'none') {
+          section.style.display = 'block';
+          section.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          section.style.display = 'none';
+        }
+      }
+
+      // Form validation
+      document.querySelector('.profile-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData);
+        
+        // Basic validation
+        if (!data.fullName || !data.email) {
+          alert('Please fill in all required fields');
+          return;
+        }
+        
+        // Simulate saving
+        alert('Profile updated successfully!');
+      });
+    </script>
+    <script src="assets/js/theme-toggle.js"></script>
+  </body>
+</html>

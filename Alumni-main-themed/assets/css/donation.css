@@ -27,32 +27,60 @@ body {
   font-family: "Roboto", sans-serif;
   color: var(--foreground);
   background-color: var(--background);
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
   justify-content: center;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
 }
 
 .donation-container {
   background: var(--card-bg);
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px var(--card-shadow);
-  max-width: 500px;
+  padding: 3rem;
+  border-radius: 15px;
+  box-shadow: 0 15px 40px var(--card-shadow);
+  max-width: 600px;
   width: 100%;
   text-align: center;
+  border: 1px solid rgba(0, 77, 64, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.donation-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
 }
 
 .donation-form h2 {
   color: var(--primary);
   margin-bottom: 1.5rem;
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .donation-form p {
   color: #666;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .donation-form label {
@@ -111,4 +139,75 @@ body {
 
 #credit-card-info {
   display: block;
+}
+
+/* Responsive design improvements */
+@media (max-width: 768px) {
+  body {
+    padding-top: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .donation-container {
+    padding: 1.5rem;
+    max-width: 100%;
+  }
+  
+  .donation-form h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 769px) {
+  body {
+    padding-top: 4rem;
+  }
+}
+
+/* Loading states and animations */
+.btn-spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.progress-bar {
+  display: none;
+  width: 100%;
+  height: 6px;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--button-hover));
+  width: 0%;
+  transition: width 0.3s ease;
+  border-radius: 3px;
+}
+
+.form-error {
+  border-color: #e74c3c !important;
+  box-shadow: 0 0 5px rgba(231, 76, 60, 0.3) !important;
+}
+
+.field-error {
+  display: none;
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
 }

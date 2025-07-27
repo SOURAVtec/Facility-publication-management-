@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alumni Association - Events</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      
+      main {
+        flex: 1;
+      }
+      
+      .events-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 2rem;
+        min-height: calc(100vh - 200px);
+      }
+      
+      .events-header {
+        text-align: center;
+        margin-bottom: 4rem;
+        padding: 2rem 0;
+      }
+      
+      .events-header h1 {
+        color: var(--primary);
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      
+      .events-header p {
+        font-size: 1.2rem;
+        color: #666;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      
+      .events-filters {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+      }
+      
+      .filter-btn {
+        padding: 0.75rem 2rem;
+        border: 2px solid var(--primary);
+        background: transparent;
+        color: var(--primary);
+        border-radius: 30px;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.95rem;
+      }
+      
+      .filter-btn.active,
+      .filter-btn:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 77, 64, 0.3);
+      }
+      
+      .events-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+      }
+      
+      .event-card {
+        background: var(--card-bg);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px var(--card-shadow);
+        transition: transform 0.3s ease;
+      }
+      
+      .event-card:hover {
+        transform: translateY(-5px);
+      }
+      
+      .event-image {
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: white;
+      }
+      
+      .event-content {
+        padding: 1.5rem;
+      }
+      
+      .event-date {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      
+      .event-title {
+        color: var(--foreground);
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+      
+      .event-description {
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+      
+      .event-meta {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+      }
+      
+      .event-location,
+      .event-time {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        color: #666;
+      }
+      
+      .event-actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+      
+      .btn {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+      }
+      
+      .btn-secondary {
+        background: transparent;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+      }
+      
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      
+      .event-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: white;
+      }
+      
+      .badge-upcoming { background: #27ae60; }
+      .badge-past { background: #7f8c8d; }
+      .badge-featured { background: #e74c3c; }
+      
+      .no-events {
+        text-align: center;
+        padding: 3rem;
+        color: #666;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="Alumni_home.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="members.html">Members</a></li>
+          <li><a href="donation.html">Donations</a></li>
+          <li><a href="jobportal.html">Job Postings</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="events-container">
+      <div class="events-header">
+        <h1>Alumni Events</h1>
+        <p>Stay connected with upcoming events and celebrations</p>
+      </div>
+
+      <div class="events-filters">
+        <button class="filter-btn active" data-filter="all">All Events</button>
+        <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+        <button class="filter-btn" data-filter="featured">Featured</button>
+        <button class="filter-btn" data-filter="networking">Networking</button>
+        <button class="filter-btn" data-filter="webinar">Webinars</button>
+        <button class="filter-btn" data-filter="reunion">Reunions</button>
+      </div>
+
+      <div class="events-grid" id="eventsGrid">
+        <!-- Events will be populated by JavaScript -->
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Alumni Association. All rights reserved.</p>
+    </footer>
+
+    <script>
+      const events = [
+        {
+          id: 1,
+          title: "Annual Alumni Reunion 2024",
+          description: "Join us for our biggest celebration of the year! Reconnect with classmates, share memories, and make new connections.",
+          date: "2024-09-15",
+          time: "6:00 PM",
+          location: "Grand Ballroom, Alumni Center",
+          category: "reunion",
+          badge: "featured",
+          icon: "🎉"
+        },
+        {
+          id: 2,
+          title: "Career Development Webinar",
+          description: "Learn about the latest trends in your industry and how to advance your career with expert speakers.",
+          date: "2024-08-20",
+          time: "2:00 PM",
+          location: "Online Event",
+          category: "webinar",
+          badge: "upcoming",
+          icon: "💼"
+        },
+        {
+          id: 3,
+          title: "Networking Mixer - Tech Professionals",
+          description: "Connect with fellow alumni working in technology. Share experiences and explore collaboration opportunities.",
+          date: "2024-08-10",
+          time: "7:00 PM",
+          location: "Tech Hub Downtown",
+          category: "networking",
+          badge: "upcoming",
+          icon: "🤝"
+        },
+        {
+          id: 4,
+          title: "Alumni Achievement Awards",
+          description: "Celebrating outstanding achievements of our alumni in various fields. Join us to honor excellence.",
+          date: "2024-07-25",
+          time: "5:00 PM",
+          location: "University Auditorium",
+          category: "featured",
+          badge: "past",
+          icon: "🏆"
+        },
+        {
+          id: 5,
+          title: "Entrepreneurship Workshop",
+          description: "Learn from successful alumni entrepreneurs about starting and growing your own business.",
+          date: "2024-09-05",
+          time: "10:00 AM",
+          location: "Innovation Center",
+          category: "networking",
+          badge: "upcoming",
+          icon: "🚀"
+        },
+        {
+          id: 6,
+          title: "Class of 2019 - 5 Year Reunion",
+          description: "Special reunion for the Class of 2019. Celebrate 5 years since graduation with your classmates.",
+          date: "2024-08-30",
+          time: "4:00 PM",
+          location: "Campus Grounds",
+          category: "reunion",
+          badge: "upcoming",
+          icon: "🎓"
+        }
+      ];
+
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        });
+      }
+
+      function isUpcoming(dateString) {
+        const eventDate = new Date(dateString);
+        const today = new Date();
+        return eventDate >= today;
+      }
+
+      function createEventCard(event) {
+        const isEventUpcoming = isUpcoming(event.date);
+        const badge = event.badge === 'upcoming' && !isEventUpcoming ? 'past' : event.badge;
+        
+        return `
+          <div class="event-card" data-category="${event.category}" data-badge="${badge}">
+            <div class="event-image">
+              ${event.icon}
+              <div class="event-badge badge-${badge}">${badge.charAt(0).toUpperCase() + badge.slice(1)}</div>
+            </div>
+            <div class="event-content">
+              <div class="event-date">
+                📅 ${formatDate(event.date)}
+              </div>
+              <h3 class="event-title">${event.title}</h3>
+              <p class="event-description">${event.description}</p>
+              <div class="event-meta">
+                <div class="event-time">⏰ ${event.time}</div>
+                <div class="event-location">📍 ${event.location}</div>
+              </div>
+              <div class="event-actions">
+                ${isEventUpcoming ? 
+                  `<button class="btn btn-primary" onclick="registerForEvent(${event.id})">Register</button>` :
+                  `<button class="btn btn-secondary" onclick="viewEventDetails(${event.id})">View Details</button>`
+                }
+                <button class="btn btn-secondary" onclick="shareEvent(${event.id})">Share</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderEvents(eventsToRender = events) {
+        const grid = document.getElementById('eventsGrid');
+        
+        if (eventsToRender.length === 0) {
+          grid.innerHTML = '<div class="no-events">No events found for the selected filter.</div>';
+          return;
+        }
+        
+        grid.innerHTML = eventsToRender.map(createEventCard).join('');
+      }
+
+      function filterEvents(category) {
+        let filteredEvents = events;
+        
+        if (category !== 'all') {
+          if (category === 'upcoming') {
+            filteredEvents = events.filter(event => isUpcoming(event.date));
+          } else if (category === 'featured') {
+            filteredEvents = events.filter(event => event.badge === 'featured');
+          } else {
+            filteredEvents = events.filter(event => event.category === category);
+          }
+        }
+        
+        renderEvents(filteredEvents);
+      }
+
+      function registerForEvent(eventId) {
+        const event = events.find(e => e.id === eventId);
+        alert(`Registration for "${event.title}" is now open! You will be redirected to the registration form.`);
+        // Here you would typically redirect to a registration form
+      }
+
+      function viewEventDetails(eventId) {
+        const event = events.find(e => e.id === eventId);
+        alert(`Event Details:\n\n${event.title}\n${event.description}\n\nDate: ${formatDate(event.date)}\nTime: ${event.time}\nLocation: ${event.location}`);
+      }
+
+      function shareEvent(eventId) {
+        const event = events.find(e => e.id === eventId);
+        if (navigator.share) {
+          navigator.share({
+            title: event.title,
+            text: event.description,
+            url: window.location.href
+          });
+        } else {
+          // Fallback for browsers that don't support Web Share API
+          const shareText = `Check out this event: ${event.title} - ${event.description}`;
+          navigator.clipboard.writeText(shareText).then(() => {
+            alert('Event details copied to clipboard!');
+          });
+        }
+      }
+
+      // Initialize page
+      document.addEventListener('DOMContentLoaded', function() {
+        renderEvents();
+        
+        // Filter button event listeners
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Filter events
+            filterEvents(this.dataset.filter);
+          });
+        });
+        
+        // Add animation to cards
+        setTimeout(() => {
+          document.querySelectorAll('.event-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+              card.style.transition = 'all 0.6s ease';
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, index * 100);
+          });
+        }, 100);
+      });
+    </script>
+    <script src="assets/js/theme-toggle.js"></script>
+  </body>
+</html>
