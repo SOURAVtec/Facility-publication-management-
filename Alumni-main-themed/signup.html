@@ -3,27 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Alumni Association - Login</title>
+    <title>Alumni Association - Sign Up</title>
     <link rel="stylesheet" href="assets/css/login.css" />
   </head>
   <body>
     <div class="login-container">
       <div class="login-form">
-        <h2>Login to Your Account</h2>
-        <form action="/login" method="post">
+        <h2>Create an Account</h2>
+        <form action="/register" method="post">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required />
+
           <label for="email">Email</label>
           <input type="email" id="email" name="email" required />
 
           <label for="password">Password</label>
           <input type="password" id="password" name="password" required />
 
-          <button type="submit">Login</button>
+          <button type="submit">Sign Up</button>
         </form>
         <form action="/auth/google" method="get" style="margin-top: 15px;">
-          <button type="submit" class="google-btn">Log In with Google</button>
+          <button type="submit" class="google-btn">Sign Up with Google</button>
         </form>
         <p class="signup-text">
-          Don't have an account? <a href="signup.html">Sign Up</a>
+          Already have an account? <a href="login.html">Login</a>
         </p>
       </div>
     </div>
