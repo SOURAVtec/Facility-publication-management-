@@ -74,8 +74,23 @@
       </section>
     </main>
 
-    <footer>
-      <p>&copy; 2024 Alumni Association. All rights reserved.</p>
+   <footer class="custom-footer">
+      <div class="footer-content">
+        <div class="footer-left">
+          <p>&copy; 2024 Alumni Association. All rights reserved.</p>
+          <p class="quick-links">
+            <a href="about.html">About</a> | 
+            <a href="contact.html">Contact</a> | 
+            <a href="privacy.html">Privacy Policy</a>
+          </p>
+        </div>
+        <div class="footer-right">
+          <a href="https://www.linkedin.com" target="_blank" aria-label="LinkedIn">🔗</a>
+          <a href="https://github.com" target="_blank" aria-label="GitHub">💻</a>
+          <a href="https://twitter.com" target="_blank" aria-label="Twitter">🐦</a>
+        </div>
+      </div>
+        <button onclick="scrollToTop()" class="back-to-top">⬆ Back to Top</button>
     </footer>
 
     <script>
@@ -112,6 +127,9 @@
           }, 100 * index);
         });
       });
+      function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     </script>
 
     <script src="assets/js/theme-toggle.js"></script>
