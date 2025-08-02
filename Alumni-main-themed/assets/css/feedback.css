@@ -1,0 +1,79 @@
+:root {
+  --background: #c3c3c3c5;
+  --foreground: #333;
+  --primary: #004d40;
+  --card-bg: #ffffffbd;
+  --card-shadow: rgba(0, 0, 0, 0.2);
+  --input-bg: #fff;
+  --input-border: #ddd;
+  --input-focus: #004d40;
+  --button-bg: #004d40;
+  --button-hover: #00332a;
+}
+
+body.dark {
+  --background: #181818f2;
+  --foreground: #f1f1f1;
+  --primary: #26a69a;
+  --secondary: #333;
+  --nav-link: #f1f1f1;
+  --nav-link-hover: #26a69a;
+  --card-bg: #232323;
+  --card-shadow: rgba(0, 0, 0, 0.7);
+}
+
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+
+  background-image: url("/Facility-publication-management-/Alumni-main-themed/assets/images/wallpaper.jpg");
+  background-size: cover; /* or 'contain' depending on your layout */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.feedback-container {
+  max-width: 500px;
+  margin: 50px auto;
+  background: var(--background);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(81, 80, 80, 0.566);
+}
+
+.feedback-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #5e5e5e;
+}
+
+.feedback-form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.feedback-form input,
+.feedback-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.feedback-form button {
+  background-color: #0078D7;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.feedback-form button:hover {
+  background-color: #005ea6;
+}

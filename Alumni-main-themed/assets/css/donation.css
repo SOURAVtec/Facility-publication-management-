@@ -3,7 +3,7 @@
   --background: #f9f9f9;
   --foreground: #333;
   --primary: #004d40;
-  --card-bg: #fff;
+  --card-bg: #ffffffbd;
   --card-shadow: rgba(0, 0, 0, 0.2);
   --input-bg: #fff;
   --input-border: #ddd;
@@ -31,9 +31,16 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  background-image: url("/Facility-publication-management-/Alumni-main-themed/assets/images/wallpaper.jpg");
+  background-size: cover; /* or 'contain' depending on your layout */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .donation-container {
+  margin-top: 18rem;
   background: var(--card-bg);
   padding: 2rem;
   border-radius: 10px;

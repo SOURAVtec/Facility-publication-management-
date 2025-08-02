@@ -1,0 +1,152 @@
+
+:root {
+  --background: #004d40;
+  --foreground: #093e34;
+  --primary: #ffffff;
+  --secondary: #b9b8b8;
+}
+
+body.dark {
+  --background: #181818f2;
+  --foreground: #078772;
+  --primary: #474747;
+  --secondary: #282727cf;
+  --nav-link: #f1f1f1;
+  --nav-link-hover: #26a69a;
+  --card-bg: #232323;
+  --card-shadow: rgba(0, 0, 0, 0.7);
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--primary);
+}
+
+
+.header {
+  background: var(--background);
+  color: rgb(208, 207, 207);
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.header h1 {
+  margin-bottom: 10px;
+}
+
+.event-section {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.event-section h2 {
+  margin-bottom: 30px;
+  color: var(--foreground);
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.event-card {
+  background: rgb(150, 150, 150);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  padding: 20px;
+  width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-card h3 {
+  margin-top: 0;
+  color: #004d40;
+}
+
+.event-card p {
+  margin: 10px 0;
+  font-size: 0.95rem;
+}
+
+.event-card span {
+  display: block;
+  margin-top: 10px;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+
+.register {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background: var(--secondary);
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+}
+
+.register h2 {
+  margin-bottom: 15px;
+  color: #004d40;
+}
+
+.register form input {
+  width: 90%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+
+
+}
+
+.register form button {
+  background: #004d40;
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 1rem;
+  margin-left: 40%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  
+
+}
+
+.register form button:hover {
+  background: #016655;
+}
+
+.register form select {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  color: #676666;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  flex-direction: column;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: #eef3f9;
+  color: #666;
+}
